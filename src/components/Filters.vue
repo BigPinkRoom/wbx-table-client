@@ -1,16 +1,24 @@
 <template>
-  <v-container>
+  <v-container class="col-6" grey lighten-3>
     <v-row>
-      <v-col>
+      <v-col class="col-auto text-uppercase">
         Filter:
       </v-col>
-      <v-col>
-        <app-drop-down-list />
+      <v-col class="col-auto">
+        <app-drop-down-list
+          :id="columns"
+          :name="columns"
+          :values="['Title', 'Quantity', 'Distance']"
+        />
       </v-col>
-      <v-col>
-        <app-drop-down-list />
+      <v-col class="col-auto">
+        <app-drop-down-list
+          :id="conditions"
+          :name="conditions"
+          :values="['Equal', 'Contain', 'More than', 'Less than']"
+        />
       </v-col>
-      <v-col>
+      <v-col class="col-auto">
         <app-input />
       </v-col>
     </v-row>

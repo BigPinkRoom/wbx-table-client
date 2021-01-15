@@ -1,7 +1,6 @@
 <template>
-  <form action="">
-    <label :for="name">Choose a car:</label>
-    <select :name="name" :id="id">
+  <form action="" class="drop-down-list_form">
+    <select :name="name" :id="id" class="drop-down-list__select">
       <option v-for="(value, index) in values" :key="index" value="value">
         {{ value }}
       </option>
@@ -20,4 +19,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.drop-down-list__select {
+  appearance: button;
+  -webkit-appearance: button;
+}
+</style>

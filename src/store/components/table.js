@@ -3,6 +3,7 @@ import { getTableDataApi } from '../../api/wbx-table-server-api';
 export default {
   state: {
     tableData: [],
+    filteredTableData: [],
   },
   mutations: {
     SET_TABLE_DATA(state, payload) {
