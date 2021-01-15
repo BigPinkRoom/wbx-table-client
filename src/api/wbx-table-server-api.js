@@ -1,0 +1,14 @@
+export async function getTableDataApi() {
+  let response;
+  try {
+    response = await fetch('http://localhost:3000/api/table');
+  } catch (error) {
+    new Error(`Request failed! ${error}`);
+  }
+
+  if (!response.ok) {
+    throw new Error(`${response.status}: ${response.statusText}`);
+  }
+
+  return response.json();
+}

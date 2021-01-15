@@ -2,10 +2,10 @@
   <form action="">
     <label :for="name">Choose a car:</label>
     <select :name="name" :id="id">
-      <option v-for="value in values" value="volvo">Volvo</option>
+      <option v-for="(value, index) in values" :key="index" value="value">
+        {{ value }}
+      </option>
     </select>
-    <br /><br />
-    <input type="submit" value="Submit" />
   </form>
 </template>
 

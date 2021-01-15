@@ -18,7 +18,15 @@
 </template>
 
 <script>
+import DropDownList from './common/DropDownList';
+import Input from './common/Input';
+
 export default {
+  name: 'Filter',
+  components: {
+    AppDropDownList: DropDownList,
+    AppInput: Input,
+  },
   data() {
     return {};
   },
