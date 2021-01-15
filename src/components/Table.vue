@@ -14,7 +14,7 @@
             <th>Quantity</th>
             <th>Distance</th>
           </tr>
-          <tr v-for="(item, index) in tableData" :key="index">
+          <tr v-for="(item, index) in tableDataFiltered" :key="index">
             <td>{{ item.date }}</td>
             <td>{{ item.title }}</td>
             <td>{{ item.quantity }}</td>
@@ -27,14 +27,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['tableData']),
-  },
-  methods: {
-    ...mapActions(['setTableData']),
+    ...mapGetters(['tableDataFiltered']),
   },
 };
 </script>

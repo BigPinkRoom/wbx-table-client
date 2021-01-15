@@ -20,6 +20,7 @@ export default {
       commit('SET_TABLE_DATA', tableData);
     },
     setTableDataFiltered({ commit }, payload) {
+      console.log('payload', payload);
       commit('SET_TABLE_DATA_FILTERED', payload);
     },
   },

@@ -5,7 +5,7 @@
     :id="id"
     class="input__input"
     v-model="inputValue"
-    @change="delayEmit()"
+    @input="delayEmit()"
   />
 </template>
 

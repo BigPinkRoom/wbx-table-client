@@ -1,6 +1,12 @@
 <template>
   <form action="" class="drop-down-list_form">
-    <select :name="name" :id="id" class="drop-down-list__select">
+    <select
+      :name="name"
+      :id="id"
+      class="drop-down-list__select"
+      @change="changeEmit()"
+      v-model="selectValue"
+    >
       <option v-for="(value, index) in values" :key="index" :value="value">
         {{ value }}
       </option>
@@ -13,8 +19,18 @@ export default {
   name: 'Input',
   props: {
     id: String,
-    values: String,
+    values: Array,
     name: String,
+  },
+  data() {
+    return {
+      selectValue: '',
+    };
+  },
+  methods: {
+    changeEmit() {
+      this.$emit('changeSelect', this.selectValue);
+    },
   },
 };
 </script>

@@ -1,15 +1,36 @@
 export function filter(array, column, condition, inputValue) {
-  const inputValue = inputValue.toLowerCase();
+  const inputValueLower = inputValue.toLowerCase();
+  const columnLower = column.toLowerCase();
   const method = condition.toLowerCase();
-  sortMethods = {
-    equal() {},
-    contain() {
+
+  const sortMethods = {
+    equal() {
       return array.filter((element) => {
-        element[column].toLowerCase().indexOf(inputValue) > -1;
+        return element[columnLower] == inputValueLower;
       });
     },
-    more() {},
-    less() {},
+    contain() {
+      return array.filter((element) => {
+        return element[columnLower].toString().indexOf(inputValueLower) > -1;
+      });
+    },
+    more() {
+      return array.filter((element) => {
+        if (isNaN(Number(inputValueLower)) || isNaN(element[columnLower])) {
+          return null;
+        }
+        return element[columnLower] > Number(inputValueLower);
+      });
+    },
+    less() {
+      return array.filter((element) => {
+        if (isNaN(Number(inputValueLower)) || isNaN(element[columnLower])) {
+          return null;
+        }
+        return element[columnLower] < Number(inputValueLower);
+      });
+    },
   };
+  console.log(sortMethods[method]());
   return sortMethods[method]();
 }

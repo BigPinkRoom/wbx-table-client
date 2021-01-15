@@ -10,8 +10,12 @@ new Vue({
   router,
   store,
   vuetify,
-  created() {
-    this.$store.dispatch('setTableData');
+  async created() {
+    await this.$store.dispatch('setTableData');
+    this.$store.dispatch(
+      'setTableDataFiltered',
+      this.$store.state.table.tableData
+    );
   },
   render: (h) => h(App),
 }).$mount('#app');
