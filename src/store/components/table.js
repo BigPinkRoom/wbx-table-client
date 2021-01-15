@@ -1,4 +1,4 @@
-import wbxTableServerApi from '@/api/wbxTableServerApi';
+import { getTableDataApi } from '../../api/wbx-table-server-api';
 
 export default {
   state: {
@@ -6,15 +6,21 @@ export default {
   },
   mutations: {
     SET_TABLE_DATA(state, payload) {
-      tableData = payload;
+      state.tableData = payload;
     },
   },
   actions: {
     async setTableData({ commit }) {
-      const tableData = await wbxTableServerApi();
+      const tableData = await getTableDataApi();
 
-      commit(SET_TABLE_DATA, tableData);
+      console.log(tableData);
+
+      commit('SET_TABLE_DATA', tableData);
     },
   },
-  getters: {},
+  getters: {
+    tableData(state) {
+      return state.tableData;
+    },
+  },
 };

@@ -22,7 +22,7 @@ import DropDownList from './common/DropDownList';
 import Input from './common/Input';
 
 export default {
-  name: 'Filter',
+  name: 'Filters',
   components: {
     AppDropDownList: DropDownList,
     AppInput: Input,

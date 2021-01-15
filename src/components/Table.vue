@@ -14,7 +14,7 @@
             <th>Quantity</th>
             <th>Distance</th>
           </tr>
-          <tr v-for="(item, index) in tableItems" :key="index">
+          <tr v-for="(item, index) in tableData" :key="index">
             <td>{{ item.date }}</td>
             <td>{{ item.title }}</td>
             <td>{{ item.quantity }}</td>
@@ -27,18 +27,17 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
-  data() {
-    return {
-      tableItems: [
-        {
-          date: '15.01.2020',
-          title: 'Title Lorem Ipsum',
-          quantity: 199,
-          distance: 1000,
-        },
-      ],
-    };
+  computed: {
+    ...mapGetters(['tableData']),
+  },
+  beforeMount() {
+    this.setTableData();
+  },
+  methods: {
+    ...mapActions(['setTableData']),
   },
 };
 </script>

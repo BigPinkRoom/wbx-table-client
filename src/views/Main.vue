@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import Filter from '../components/Filter';
+import Filters from '../components/Filters';
 import Table from '../components/Table';
 
 export default {
   name: 'Main',
   components: {
-    AppFilter: Filter,
+    AppFilter: Filters,
     AppTable: Table,
   },
 };
