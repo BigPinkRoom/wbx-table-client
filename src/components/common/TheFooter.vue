@@ -1,10 +1,12 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        wbx-table-client 2021
-      </v-col>
-    </v-row>
+  <v-container fluid class="blue pa-0">
+    <v-container>
+      <v-row>
+        <v-col class="d-flex text-uppercase white--text justify-center"
+          >Wbx-table-client 2021</v-col
+        >
+      </v-row>
+    </v-container>
   </v-container>
 </template>
 
@@ -12,4 +14,4 @@
 export default {};
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
