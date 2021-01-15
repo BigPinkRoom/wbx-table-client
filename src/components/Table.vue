@@ -33,9 +33,6 @@ export default {
   computed: {
     ...mapGetters(['tableData']),
   },
-  beforeMount() {
-    this.setTableData();
-  },
   methods: {
     ...mapActions(['setTableData']),
   },

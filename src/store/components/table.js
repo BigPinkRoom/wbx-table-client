@@ -13,8 +13,6 @@ export default {
     async setTableData({ commit }) {
       const tableData = await getTableDataApi();
 
-      console.log(tableData);
-
       commit('SET_TABLE_DATA', tableData);
     },
   },
