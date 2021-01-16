@@ -6,12 +6,17 @@ export function filter(array, column, condition, inputValue) {
   const sortMethods = {
     equal() {
       return array.filter((element) => {
-        return element[columnLower] == inputValueLower;
+        return element[columnLower].toLowerCase() == inputValueLower;
       });
     },
     contain() {
       return array.filter((element) => {
-        return element[columnLower].toString().indexOf(inputValueLower) > -1;
+        return (
+          element[columnLower]
+            .toString()
+            .toLowerCase()
+            .indexOf(inputValueLower) > -1
+        );
       });
     },
     more() {
@@ -31,6 +36,5 @@ export function filter(array, column, condition, inputValue) {
       });
     },
   };
-  console.log(sortMethods[method]());
   return sortMethods[method]();
 }
