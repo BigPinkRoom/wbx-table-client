@@ -6,7 +6,7 @@ export function filter(array, column, condition, inputValue) {
   const sortMethods = {
     equal() {
       return array.filter((element) => {
-        return element[columnLower].toLowerCase() == inputValueLower;
+        return element[columnLower].toString().toLowerCase() == inputValueLower;
       });
     },
     contain() {

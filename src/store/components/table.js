@@ -34,6 +34,7 @@ export default {
       let array = [];
       let subArray = [];
       let count = 0;
+
       state.tableDataFiltered.forEach((element) => {
         if (count === 10) {
           count = 0;
@@ -44,6 +45,10 @@ export default {
           count++;
         }
       });
+
+      if (array.length === 0) {
+        array.push(subArray);
+      }
 
       return array;
     },

@@ -191,8 +191,5 @@ export default {
   &:hover {
     background-color: #1976d2;
   }
-
-  .table-pagination__text {
-  }
 }
 </style>

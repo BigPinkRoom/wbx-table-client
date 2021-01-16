@@ -80,13 +80,6 @@ export default {
     },
 
     filterTable() {
-      console.log(
-        this.tableData,
-        this.tableDataFiltered,
-        this.selectColumn,
-        this.selectCondition,
-        this.inputValue
-      );
       if (this.inputValue == '') {
         return this.tableData;
       }
