@@ -1,11 +1,11 @@
 <template>
   <form action="" class="drop-down-list_form">
     <select
-      :name="name"
       :id="id"
+      v-model="selectValue"
+      :name="name"
       class="drop-down-list__select"
       @change="changeEmit()"
-      v-model="selectValue"
     >
       <option v-for="(value, index) in values" :key="index" :value="value">
         {{ value }}

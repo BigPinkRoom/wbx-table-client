@@ -1,10 +1,10 @@
 <template>
   <input
-    type="text"
-    :name="name"
     :id="id"
-    class="input__input"
     v-model="inputValue"
+    :name="name"
+    class="input__input"
+    type="text"
     @input="delayEmit()"
   />
 </template>

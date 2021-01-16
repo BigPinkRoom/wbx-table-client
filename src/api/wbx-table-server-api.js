@@ -1,7 +1,7 @@
 export async function getTableDataApi() {
   let response;
   try {
-    response = await fetch('http://localhost:3000/api/table');
+    response = await fetch('https://wbx-table-server.herokuapp.com/api/table');
   } catch (error) {
     new Error(`Request failed! ${error}`);
   }

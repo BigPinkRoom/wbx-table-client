@@ -18,8 +18,8 @@
       <v-col class="col-auto d-flex align-center ">
         <app-drop-down-list
           id="conditions"
-          name="conditions"
           :values="['Equal', 'Contain', 'More', 'Less']"
+          name="conditions"
           @changeSelect="changeCondition"
         />
       </v-col>
@@ -28,9 +28,9 @@
       </v-col>
       <v-col class="d-flex align-center">
         <app-input
-          @inputChange="inputChangeHandler"
-          name="filterInput"
           id="filterInput"
+          name="filterInput"
+          @inputChange="inputChangeHandler"
         />
       </v-col>
     </v-row>
