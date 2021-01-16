@@ -1,10 +1,10 @@
 <template>
   <v-app>
+    <app-header class="mb-5"></app-header>
     <v-main>
-      <app-header></app-header>
       <router-view></router-view>
-      <app-footer></app-footer>
     </v-main>
+    <app-footer></app-footer>
   </v-app>
 </template>
 
