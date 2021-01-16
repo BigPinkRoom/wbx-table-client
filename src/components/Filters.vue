@@ -1,6 +1,6 @@
 <template>
-  <v-container class="col-8 d-flex " blue lighten-5>
-    <v-row>
+  <v-container class="col-md-8" blue lighten-5>
+    <v-row class="d-flex flex-column flex-sm-row align-center">
       <v-col class="d-flex col-auto text-uppercase">
         <h2 class="blue--text">Filter:</h2>
       </v-col>

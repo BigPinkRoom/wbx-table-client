@@ -184,6 +184,7 @@ export default {
   padding: 5px 10px;
 
   color: #fff;
+  outline: none;
 
   border-radius: 8px;
   background-color: #2196f3;
