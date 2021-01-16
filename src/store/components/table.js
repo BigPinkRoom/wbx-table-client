@@ -30,5 +30,22 @@ export default {
     tableDataFiltered(state) {
       return state.tableDataFiltered;
     },
+    tableDataFilteredPaginated(state) {
+      let array = [];
+      let subArray = [];
+      let count = 0;
+      state.tableDataFiltered.forEach((element) => {
+        if (count === 10) {
+          count = 0;
+          array.push(subArray);
+          subArray = [];
+        } else {
+          subArray.push(element);
+          count++;
+        }
+      });
+
+      return array;
+    },
   },
 };

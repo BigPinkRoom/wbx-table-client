@@ -1,5 +1,5 @@
 <template>
-  <v-container class="col-8" blue lighten-5>
+  <v-container class="sm-col-6 d-flex " blue lighten-5>
     <v-row>
       <v-col class="d-flex col-auto text-uppercase">
         <h2 class="blue--text">Filter:</h2>
@@ -7,8 +7,8 @@
       <v-col class="col-auto d-flex align-center ">
         <app-drop-down-list
           id="columns"
-          name="columns"
           :values="['Title', 'Quantity', 'Distance']"
+          name="columns"
           @changeSelect="changeColumn"
         />
       </v-col>

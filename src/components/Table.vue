@@ -18,7 +18,10 @@
               Distance
             </th>
           </tr>
-          <tr v-for="(item, index) in paginatedTable[currentPage]" :key="index">
+          <tr
+            v-for="(item, index) in tableDataFilteredPaginated[currentPage]"
+            :key="index"
+          >
             <td>{{ new Date(item.date).toDateString() }}</td>
             <td>{{ item.title }}</td>
             <td>{{ item.quantity }}</td>
@@ -27,12 +30,22 @@
         </table>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
-        <button @click="currentPage--">Prev</button>
+    <v-row class="table-pagination mt-3">
+      <v-col class="col-auto">
+        <button class="table-pagination__button" @click="previousPage()">
+          Prev
+        </button>
       </v-col>
-      <v-col>
-        <button @click="currentPage++">Next</button>
+      <v-col class="col-auto table-pagination__text d-flex align-center">
+        Page: {{ currentPage + 1 }}
+      </v-col>
+      <v-col class="col-auto">
+        <button class="table-pagination__button" @click="nextPage()">
+          Next
+        </button>
+      </v-col>
+      <v-col class="col-auto table-pagination__text d-flex align-center">
+        Total pages: {{ tableDataFilteredPaginated.length }}
       </v-col>
     </v-row>
   </v-container>
@@ -51,88 +64,84 @@ export default {
       sortTitleUse: false,
       sortQuantityUse: false,
       sortDistanceUse: false,
-      currentPage: 10,
+      currentPage: 0,
     };
   },
   computed: {
-    ...mapGetters(['tableDataFiltered']),
-    paginatedTable: {
-      get: function() {
-        let array = [];
-        let subArray = [];
-        let count = 0;
-        this.tableDataFiltered.forEach((element) => {
-          if (count === 10) {
-            count = 0;
-            array.push(subArray);
-            subArray = [];
-          } else {
-            subArray.push(element);
-            count++;
+    ...mapGetters(['tableDataFiltered', 'tableDataFilteredPaginated']),
+  },
+  methods: {
+    ...mapActions(['setTableDataFiltered']),
+
+    sortByTitle() {
+      let sortedArray;
+
+      if (this.sortTitleUse) {
+        sortedArray = this.tableDataFiltered.sort((a, b) => {
+          let titleA = a.title.toLowerCase();
+          let titleB = b.title.toLowerCase();
+
+          if (titleA < titleB) {
+            return -1;
           }
+
+          if (titleA > titleB) {
+            return 1;
+          }
+
+          return 0;
         });
+      } else {
+        sortedArray = this.tableDataFiltered.sort((a, b) => {
+          let titleA = a.title.toLowerCase();
+          let titleB = b.title.toLowerCase();
 
-        return array;
-      },
+          if (titleA < titleB) {
+            return 1;
+          }
+
+          if (titleA > titleB) {
+            return -1;
+          }
+
+          return 0;
+        });
+      }
+
+      this.sortTitleUse = !this.sortTitleUse;
+
+      this.setTableDataFiltered(sortedArray);
     },
-    methods: {
-      ...mapActions(['setTableDataFiltered']),
-      sortByTitle() {
-        let sortedArray;
 
-        if (this.sortTitleUse) {
-          sortedArray = this.tableDataFiltered.sort((a, b) => {
-            let titleA = a.title.toLowerCase();
-            let titleB = b.title.toLowerCase();
+    sortByNumbers(isUse, column) {
+      let sortedArray;
+      if (this[isUse]) {
+        sortedArray = this.tableDataFiltered.sort((a, b) => {
+          return a[column] - b[column];
+        });
+      } else {
+        sortedArray = this.tableDataFiltered.sort((a, b) => {
+          return b[column] - a[column];
+        });
+      }
 
-            if (titleA < titleB) {
-              return -1;
-            }
+      this[isUse] = !this[isUse];
 
-            if (titleA > titleB) {
-              return 1;
-            }
-
-            return 0;
-          });
-        } else {
-          sortedArray = this.tableDataFiltered.sort((a, b) => {
-            let titleA = a.title.toLowerCase();
-            let titleB = b.title.toLowerCase();
-
-            if (titleA < titleB) {
-              return 1;
-            }
-
-            if (titleA > titleB) {
-              return -1;
-            }
-
-            return 0;
-          });
-        }
-
-        this.sortTitleUse = !this.sortTitleUse;
-
-        this.setTableDataFiltered(sortedArray);
-      },
-
-      sortByNumbers(isUse, column) {
-        let sortedArray;
-        if (this[isUse]) {
-          sortedArray = this.tableDataFiltered.sort((a, b) => {
-            return a[column] - b[column];
-          });
-        } else {
-          sortedArray = this.tableDataFiltered.sort((a, b) => {
-            return b[column] - a[column];
-          });
-        }
-
-        this[isUse] = !this[isUse];
-
-        this.setTableDataFiltered(sortedArray);
-      },
+      this.setTableDataFiltered(sortedArray);
+    },
+    nextPage() {
+      if (this.currentPage < this.tableDataFilteredPaginated.length - 1) {
+        this.currentPage++;
+      } else {
+        return;
+      }
+    },
+    previousPage() {
+      if (this.currentPage > 0) {
+        this.currentPage--;
+      } else {
+        return;
+      }
     },
   },
 };
@@ -167,5 +176,22 @@ export default {
   color: white;
 
   background-color: #2196f3;
+
+  cursor: pointer;
+}
+
+.table-pagination__button {
+  padding: 5px 10px;
+
+  color: #fff;
+
+  border-radius: 8px;
+  background-color: #2196f3;
+  &:hover {
+    background-color: #1976d2;
+  }
+
+  .table-pagination__text {
+  }
 }
 </style>
