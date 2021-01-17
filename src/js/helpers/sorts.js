@@ -43,11 +43,11 @@ export default {
 
     if (this[useMarkString]) {
       sortedArray = array.sort((a, b) => {
-        return a[column] - b[column];
+        return b[column] - a[column];
       });
     } else {
       sortedArray = array.sort((a, b) => {
-        return b[column] - a[column];
+        return a[column] - b[column];
       });
     }
 

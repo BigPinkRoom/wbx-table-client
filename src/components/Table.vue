@@ -15,18 +15,23 @@
         <v-col>
           <table class="table__main">
             <!-- table headers -->
-            <tr>
-              <th>Date</th>
+            <tr class="table__tr">
+              <th class="table__th">Date</th>
               <th
+                class="table__th"
                 @click="
                   setTableDataFiltered(
                     sort.byText(tableDataFiltered, 'sortTitleUseMark')
                   )
                 "
               >
-                Title {{ sort.sortTitleUseMark ? '▲' : '▼' }}
+                Title
+                <span class="table__span">{{
+                  sort.sortTitleUseMark ? '▲' : '▼'
+                }}</span>
               </th>
               <th
+                class="table__th"
                 @click="
                   setTableDataFiltered(
                     sort.byNumbers(
@@ -37,9 +42,10 @@
                   )
                 "
               >
-                Quantity
+                Quantity {{ sort.sortQuantityUseMark ? '▲' : '▼' }}
               </th>
               <th
+                class="table__th"
                 @click="
                   setTableDataFiltered(
                     sort.byNumbers(
@@ -50,7 +56,7 @@
                   )
                 "
               >
-                Distance
+                Distance {{ sort.sortDistanceUseMark ? '▲' : '▼' }}
               </th>
             </tr>
 
@@ -58,11 +64,14 @@
             <tr
               v-for="(item, index) in tableDataFilteredPaginated[currentPage]"
               :key="index"
+              class="table__tr"
             >
-              <td>{{ new Date(item.date).toDateString() }}</td>
-              <td>{{ item.title }}</td>
-              <td>{{ item.quantity }}</td>
-              <td>{{ item.distance }}</td>
+              <td class="table__td">
+                {{ new Date(item.date).toDateString() }}
+              </td>
+              <td class="table__td">{{ item.title }}</td>
+              <td class="table__td">{{ item.quantity }}</td>
+              <td class="table__td">{{ item.distance }}</td>
             </tr>
           </table>
         </v-col>
@@ -159,11 +168,19 @@ export default {
   border-collapse: collapse;
 }
 
-.table__main td,
-.table__main th {
+.table__td {
   padding: 8px;
 
   border: 1px solid #ddd;
+}
+
+.table__tr {
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  &:hover {
+    background-color: #ddd;
+  }
 }
 
 .table__main tr:nth-child(even) {
@@ -174,16 +191,22 @@ export default {
   background-color: #ddd;
 }
 
-.table__main th {
-  padding-top: 12px;
-  padding-bottom: 12px;
+.table__th {
+  padding: 12px 8px 12px 8px;
 
   text-align: left;
   color: white;
 
   background-color: #2196f3;
-
+  border: 1px solid #ddd;
   cursor: pointer;
+  &:hover {
+    background-color: #1976d2;
+  }
+}
+
+.table__span {
+  float: right;
 }
 
 .table-pagination__button {
