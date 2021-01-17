@@ -3,6 +3,7 @@
     :id="id"
     v-model="inputValue"
     :name="name"
+    :placeholder="textPlaceholder"
     class="input__input"
     type="text"
     @input="delayEmit()"
@@ -15,6 +16,7 @@ export default {
   props: {
     name: String,
     id: String,
+    textPlaceholder: String,
   },
   data() {
     return {

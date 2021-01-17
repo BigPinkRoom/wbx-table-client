@@ -7,13 +7,15 @@
       <!-- table title -->
       <v-row>
         <v-col>
-          <h1>The Table</h1>
+          <h1>
+            The Table
+          </h1>
         </v-col>
       </v-row>
 
       <v-row>
         <v-col>
-          <table class="table__main">
+          <table class="table__main text-caption text-sm-body-1">
             <!-- table headers -->
             <tr class="table__tr">
               <th class="table__th">Date</th>
@@ -78,29 +80,30 @@
       </v-row>
 
       <!-- table pagination -->
-      <v-row class="table-pagination mt-3">
+      <v-row
+        class="table-pagination col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 mt-1 mt-sm-3 px-0 px-sm-3"
+      >
         <!-- pagination previous page-->
-        <v-col class="col-auto">
+        <v-col class="col-3 col-sm-4 px-0 px-sm-3">
           <button class="table-pagination__button" @click="previousPage()">
             Prev
           </button>
         </v-col>
 
         <!-- pagination current page -->
-        <v-col class="col-auto table-pagination__text d-flex align-center">
-          Page: {{ currentPage + 1 }}
+        <v-col
+          class="col-6 col-sm-4 table-pagination__text d-flex align-center justify-center px-0 px-sm-3"
+        >
+          <p class="ma-0">
+            Page: {{ currentPage + 1 }}/{{ tableDataFilteredPaginated.length }}
+          </p>
         </v-col>
 
         <!-- pagination next page -->
-        <v-col class="col-auto">
+        <v-col class="col-3 col-sm-4 px-0 px-sm-3">
           <button class="table-pagination__button" @click="nextPage()">
             Next
           </button>
-        </v-col>
-
-        <!-- pagination all pages length -->
-        <v-col class="col-auto table-pagination__text d-flex align-center">
-          Total pages: {{ tableDataFilteredPaginated.length }}
         </v-col>
       </v-row>
     </v-container>
@@ -196,6 +199,7 @@ export default {
 
   text-align: left;
   color: white;
+  white-space: nowrap;
 
   background-color: #2196f3;
   border: 1px solid #ddd;
@@ -210,12 +214,13 @@ export default {
 }
 
 .table-pagination__button {
+  width: 100%;
   padding: 5px 10px;
 
   color: #fff;
   outline: none;
 
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: #2196f3;
   &:hover {
     background-color: #1976d2;

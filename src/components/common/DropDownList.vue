@@ -1,5 +1,5 @@
 <template>
-  <form action="" class="drop-down-list_form">
+  <form action="" class="drop-down-list__form">
     <select
       :id="id"
       v-model="selectValue"
@@ -7,6 +7,7 @@
       class="drop-down-list__select"
       @change="changeEmit()"
     >
+      <option value="" disabled selected>{{ textPlaceholder }}</option>
       <option v-for="(value, index) in values" :key="index" :value="value">
         {{ value }}
       </option>
@@ -21,6 +22,7 @@ export default {
     id: String,
     values: Array,
     name: String,
+    textPlaceholder: String,
   },
   data() {
     return {
@@ -36,7 +38,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.drop-down-list__form {
+  width: 100%;
+}
+
 .drop-down-list__select {
+  width: 100%;
+
   background-color: #fff;
   border: 3px solid #90caf9;
   border-radius: 4px;
