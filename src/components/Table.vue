@@ -24,7 +24,7 @@
                   )
                 "
               >
-                Title
+                Title {{ sort.sortTitleUseMark ? '▲' : '▼' }}
               </th>
               <th
                 @click="
@@ -44,7 +44,7 @@
                   setTableDataFiltered(
                     sort.byNumbers(
                       tableDataFiltered,
-                      'sortQuantityUseMark',
+                      'sortDistanceUseMark',
                       'distance'
                     )
                   )
@@ -95,10 +95,12 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-container v-else>
+    <v-container class="table-else__container d-flex align-center" v-else>
       <v-row>
-        <v-col>
-          Please wait...
+        <v-col class="table-else__text d-flex align-center justify-center">
+          <h3>
+            Please wait (first loading can be long - for 15 seconds. Heroku)...
+          </h3>
         </v-col>
       </v-row>
     </v-container>
@@ -116,9 +118,6 @@ export default {
       title: '',
       quantity: '',
       distance: '',
-      sortTitleUseMark: false,
-      sortQuantityUseMark: false,
-      sortDistanceUseMark: false,
       currentPage: 0,
       sort,
     };
@@ -197,6 +196,26 @@ export default {
   background-color: #2196f3;
   &:hover {
     background-color: #1976d2;
+  }
+}
+
+.table-else__container {
+  height: 25vh;
+}
+
+.table-else__text {
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>

@@ -1,4 +1,7 @@
 export default {
+  sortTitleUseMark: false,
+  sortQuantityUseMark: false,
+  sortDistanceUseMark: false,
   /**
    * sort by text of table data array
    * @param {Array} array - sortable array
@@ -7,7 +10,7 @@ export default {
    */
   byText(array, useMarkString) {
     let sortedArray;
-
+    console.log(this);
     sortedArray = array.sort((a, b) => {
       let titleA = a.title.toLowerCase();
       let titleB = b.title.toLowerCase();
