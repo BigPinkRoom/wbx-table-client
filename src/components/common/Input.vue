@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  name: 'Input',
   props: {
     name: String,
     id: String,
@@ -22,6 +23,9 @@ export default {
     };
   },
   methods: {
+    /**
+     * delay emit of 'input' component
+     */
     delayEmit() {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
