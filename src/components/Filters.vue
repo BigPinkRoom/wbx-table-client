@@ -1,9 +1,12 @@
 <template>
   <v-container class="col-md-8" blue lighten-5>
     <v-row class="d-flex flex-column flex-sm-row align-center">
-      <v-col class="d-flex col-auto text-uppercase">
+      <!-- filters title -->
+      <v-col class="col-auto d-flex text-uppercase">
         <h2 class="blue--text">Filter:</h2>
       </v-col>
+
+      <!-- filter of column -->
       <v-col class="col-auto d-flex align-center ">
         <app-drop-down-list
           id="columns"
@@ -12,9 +15,12 @@
           @changeSelect="changeColumn"
         />
       </v-col>
+
       <v-col class="col-auto d-flex align-center ">
         +
       </v-col>
+
+      <!-- filter of contain -->
       <v-col class="col-auto d-flex align-center ">
         <app-drop-down-list
           id="conditions"
@@ -26,6 +32,8 @@
       <v-col class="col-auto d-flex align-center ">
         +
       </v-col>
+
+      <!-- input of filter -->
       <v-col class="d-flex align-center">
         <app-input
           id="filterInput"
@@ -62,23 +70,44 @@ export default {
   methods: {
     ...mapActions(['setTableDataFiltered']),
 
+    /**
+     * change column value
+     * @prop {String} value - name of column
+     */
     changeColumn(value) {
       this.selectColumn = value;
     },
+
+    /**
+     * change condition value
+     * @prop {String} value - name of condition
+     */
     changeCondition(value) {
       this.selectCondition = value;
     },
 
+    /**
+     * change input value
+     * @prop {String} value - value of input
+     */
     changeInputValue(value) {
       this.inputValue = value;
     },
 
+    /**
+     * function - aggregator, for change event of input value
+     * @prop {String} value - value of input
+     */
     inputChangeHandler(value) {
       this.changeInputValue(value);
 
       this.setTableDataFiltered(this.filterTable());
     },
 
+    /**
+     * change tableData with selected filters
+     * @return {Array}
+     */
     filterTable() {
       if (this.inputValue == '') {
         return this.tableData;
@@ -95,4 +124,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
