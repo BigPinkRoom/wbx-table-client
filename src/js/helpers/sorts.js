@@ -1,4 +1,10 @@
 export default {
+  /**
+   * sort by text of table data array
+   * @param {Array} array - sortable array
+   * @param {String} useMarkString - name of use string mark (toggle true/false)
+   * @return {Array} - sorted array
+   */
   byText(array, useMarkString) {
     let sortedArray;
 
@@ -22,6 +28,13 @@ export default {
     return sortedArray;
   },
 
+  /**
+   * sort by numbers of table data array
+   * @param {Array} array - sortable array
+   * @param {String} useMarkString - name of use string mark (toggle true/false)
+   * @param {String} column- name of sortable column
+   * @return {Array} - sorted array
+   */
   byNumbers(array, useMarkString, column) {
     let sortedArray;
 
