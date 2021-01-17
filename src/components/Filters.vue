@@ -72,7 +72,7 @@ export default {
 
     /**
      * change column value
-     * @prop {String} value - name of column
+     * @param {String} value - name of column
      */
     changeColumn(value) {
       this.selectColumn = value;
@@ -80,7 +80,7 @@ export default {
 
     /**
      * change condition value
-     * @prop {String} value - name of condition
+     * @param {String} value - name of condition
      */
     changeCondition(value) {
       this.selectCondition = value;
@@ -88,7 +88,7 @@ export default {
 
     /**
      * change input value
-     * @prop {String} value - value of input
+     * @param {String} value - value of input
      */
     changeInputValue(value) {
       this.inputValue = value;
@@ -96,7 +96,7 @@ export default {
 
     /**
      * function - aggregator, for change event of input value
-     * @prop {String} value - value of input
+     * @param {String} value - value of input
      */
     inputChangeHandler(value) {
       this.changeInputValue(value);
