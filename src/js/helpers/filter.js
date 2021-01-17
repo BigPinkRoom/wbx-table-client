@@ -1,3 +1,11 @@
+/**
+ * filter of table data array
+ * @param {Array} array - filterable array
+ * @param {String} column - name of filterable column
+ * @param {String} condition - name of filterable condition
+ * @param {String} inputValue - name of filterable input value
+ * @return {Array} - filtered array
+ */
 export function filter(array, column, condition, inputValue) {
   const inputValueLower = inputValue.toLowerCase();
   const columnLower = column.toLowerCase();
