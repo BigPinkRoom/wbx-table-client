@@ -44,5 +44,19 @@ export function filter(array, column, condition, inputValue) {
       });
     },
   };
-  return sortMethods[method]();
+
+  let result = sortMethods[method]();
+
+  if (!result.length) {
+    result = [
+      {
+        date: Date.now(),
+        title: 'Not found',
+        quantity: 0,
+        distance: 0,
+      },
+    ];
+  }
+
+  return result;
 }
