@@ -1,58 +1,113 @@
 <template>
-  <v-container class="d-flex flex-column align-center">
-    <v-row>
-      <v-col>
-        <h1>The Table</h1>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <table class="table__main">
-          <tr>
-            <th>Date</th>
-            <th @click="sortByTitle()">Title</th>
-            <th @click="sortByNumbers(sortQuantityUse, 'quantity')">
-              Quantity
-            </th>
-            <th @click="sortByNumbers(sortDistanceUse, 'distance')">
-              Distance
-            </th>
-          </tr>
-          <tr
-            v-for="(item, index) in tableDataFilteredPaginated[currentPage]"
-            :key="index"
-          >
-            <td>{{ new Date(item.date).toDateString() }}</td>
-            <td>{{ item.title }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.distance }}</td>
-          </tr>
-        </table>
-      </v-col>
-    </v-row>
-    <v-row class="table-pagination mt-3">
-      <v-col class="col-auto">
-        <button class="table-pagination__button" @click="previousPage()">
-          Prev
-        </button>
-      </v-col>
-      <v-col class="col-auto table-pagination__text d-flex align-center">
-        Page: {{ currentPage + 1 }}
-      </v-col>
-      <v-col class="col-auto">
-        <button class="table-pagination__button" @click="nextPage()">
-          Next
-        </button>
-      </v-col>
-      <v-col class="col-auto table-pagination__text d-flex align-center">
-        Total pages: {{ tableDataFilteredPaginated.length }}
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <v-container
+      class="d-flex flex-column align-center"
+      v-if="tableDataFiltered.length"
+    >
+      <!-- table title -->
+      <v-row>
+        <v-col>
+          <h1>The Table</h1>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col>
+          <table class="table__main">
+            <!-- table headers -->
+            <tr>
+              <th>Date</th>
+              <th
+                @click="
+                  setTableDataFiltered(
+                    sort.byText(tableDataFiltered, 'sortTitleUseMark')
+                  )
+                "
+              >
+                Title
+              </th>
+              <th
+                @click="
+                  setTableDataFiltered(
+                    sort.byNumbers(
+                      tableDataFiltered,
+                      'sortQuantityUseMark',
+                      'quantity'
+                    )
+                  )
+                "
+              >
+                Quantity
+              </th>
+              <th
+                @click="
+                  setTableDataFiltered(
+                    sort.byNumbers(
+                      tableDataFiltered,
+                      'sortQuantityUseMark',
+                      'distance'
+                    )
+                  )
+                "
+              >
+                Distance
+              </th>
+            </tr>
+
+            <!-- table body -->
+            <tr
+              v-for="(item, index) in tableDataFilteredPaginated[currentPage]"
+              :key="index"
+            >
+              <td>{{ new Date(item.date).toDateString() }}</td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.distance }}</td>
+            </tr>
+          </table>
+        </v-col>
+      </v-row>
+
+      <!-- table pagination -->
+      <v-row class="table-pagination mt-3">
+        <!-- pagination previous page-->
+        <v-col class="col-auto">
+          <button class="table-pagination__button" @click="previousPage()">
+            Prev
+          </button>
+        </v-col>
+
+        <!-- pagination current page -->
+        <v-col class="col-auto table-pagination__text d-flex align-center">
+          Page: {{ currentPage + 1 }}
+        </v-col>
+
+        <!-- pagination next page -->
+        <v-col class="col-auto">
+          <button class="table-pagination__button" @click="nextPage()">
+            Next
+          </button>
+        </v-col>
+
+        <!-- pagination all pages length -->
+        <v-col class="col-auto table-pagination__text d-flex align-center">
+          Total pages: {{ tableDataFilteredPaginated.length }}
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container v-else>
+      <v-row>
+        <v-col>
+          Please wait...
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import sort from '../js/helpers/sorts';
 
 export default {
   name: 'Table',
@@ -61,10 +116,11 @@ export default {
       title: '',
       quantity: '',
       distance: '',
-      sortTitleUse: false,
-      sortQuantityUse: false,
-      sortDistanceUse: false,
+      sortTitleUseMark: false,
+      sortQuantityUseMark: false,
+      sortDistanceUseMark: false,
       currentPage: 0,
+      sort,
     };
   },
   computed: {
@@ -73,74 +129,25 @@ export default {
   methods: {
     ...mapActions(['setTableDataFiltered']),
 
-    sortByTitle() {
-      let sortedArray;
-
-      if (this.sortTitleUse) {
-        sortedArray = this.tableDataFiltered.sort((a, b) => {
-          let titleA = a.title.toLowerCase();
-          let titleB = b.title.toLowerCase();
-
-          if (titleA < titleB) {
-            return -1;
-          }
-
-          if (titleA > titleB) {
-            return 1;
-          }
-
-          return 0;
-        });
-      } else {
-        sortedArray = this.tableDataFiltered.sort((a, b) => {
-          let titleA = a.title.toLowerCase();
-          let titleB = b.title.toLowerCase();
-
-          if (titleA < titleB) {
-            return 1;
-          }
-
-          if (titleA > titleB) {
-            return -1;
-          }
-
-          return 0;
-        });
-      }
-
-      this.sortTitleUse = !this.sortTitleUse;
-
-      this.setTableDataFiltered(sortedArray);
-    },
-
-    sortByNumbers(isUse, column) {
-      let sortedArray;
-      if (this[isUse]) {
-        sortedArray = this.tableDataFiltered.sort((a, b) => {
-          return a[column] - b[column];
-        });
-      } else {
-        sortedArray = this.tableDataFiltered.sort((a, b) => {
-          return b[column] - a[column];
-        });
-      }
-
-      this[isUse] = !this[isUse];
-
-      this.setTableDataFiltered(sortedArray);
-    },
+    /**
+     * change to next page on pagination
+     */
     nextPage() {
       if (this.currentPage < this.tableDataFilteredPaginated.length - 1) {
         this.currentPage++;
       } else {
-        return;
+        return null;
       }
     },
+
+    /**
+     * change to previous page on pagination
+     */
     previousPage() {
       if (this.currentPage > 0) {
         this.currentPage--;
       } else {
-        return;
+        return null;
       }
     },
   },
