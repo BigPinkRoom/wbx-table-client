@@ -122,7 +122,7 @@ export default {
         if (paginatedLength > this.paginationCurrentPage) {
           this.SET_PAGINATION_CURRENT_PAGE(0);
         }
-      });
+      }, 400);
     },
 
     /**
