@@ -41,6 +41,7 @@
           id="filterInput"
           name="filterInput"
           textPlaceholder="Search..."
+          inputEventEmitName="inputChange"
           @inputChange="inputChangeHandler"
         />
       </v-col>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import DropDownList from './common/DropDownList';
 import Input from './common/Input';
 import { filter } from '../js/helpers/filter';
@@ -65,13 +66,20 @@ export default {
       inputValue: '',
       selectColumn: '',
       selectCondition: '',
+      inputEmitTimer: null,
     };
   },
   computed: {
-    ...mapGetters(['tableData', 'tableDataFiltered']),
+    ...mapGetters([
+      'tableData',
+      'tableDataFiltered',
+      'tableDataFilteredPaginated',
+      'paginationCurrentPage',
+    ]),
   },
   methods: {
     ...mapActions(['setTableDataFiltered']),
+    ...mapMutations(['SET_PAGINATION_CURRENT_PAGE']),
 
     /**
      * change column value
@@ -102,9 +110,19 @@ export default {
      * @param {String} value - value of input
      */
     inputChangeHandler(value) {
-      this.changeInputValue(value);
+      clearTimeout(this.inputEmitTimer);
 
-      this.setTableDataFiltered(this.filterTable());
+      const paginatedLength = this.tableDataFilteredPaginated.length + 1;
+
+      this.inputEmitTimer = setTimeout(() => {
+        this.changeInputValue(value);
+
+        this.setTableDataFiltered(this.filterTable());
+
+        if (paginatedLength > this.paginationCurrentPage) {
+          this.SET_PAGINATION_CURRENT_PAGE(0);
+        }
+      });
     },
 
     /**
@@ -112,7 +130,13 @@ export default {
      * @return {Array}
      */
     filterTable() {
-      if (this.inputValue == '') {
+      const checkFields = [
+        this.inputValue,
+        this.selectColumn,
+        this.selectCondition,
+      ].every((elem) => elem);
+
+      if (!checkFields) {
         return this.tableData;
       }
 

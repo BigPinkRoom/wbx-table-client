@@ -64,7 +64,9 @@
 
             <!-- table body -->
             <tr
-              v-for="(item, index) in tableDataFilteredPaginated[currentPage]"
+              v-for="(item, index) in tableDataFilteredPaginated[
+                paginationCurrentPage
+              ]"
               :key="index"
               class="table__tr"
             >
@@ -95,7 +97,9 @@
           class="col-6 col-sm-4 table-pagination__text d-flex align-center justify-center px-0 px-sm-3"
         >
           <p class="ma-0">
-            Page: {{ currentPage + 1 }}/{{ tableDataFilteredPaginated.length }}
+            Page: {{ paginationCurrentPage + 1 }}/{{
+              tableDataFilteredPaginated.length
+            }}
           </p>
         </v-col>
 
@@ -120,7 +124,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import sort from '../js/helpers/sorts';
 
 export default {
@@ -130,22 +134,29 @@ export default {
       title: '',
       quantity: '',
       distance: '',
-      currentPage: 0,
       sort,
     };
   },
   computed: {
-    ...mapGetters(['tableDataFiltered', 'tableDataFilteredPaginated']),
+    ...mapGetters([
+      'tableDataFiltered',
+      'tableDataFilteredPaginated',
+      'paginationCurrentPage',
+    ]),
   },
   methods: {
     ...mapActions(['setTableDataFiltered']),
+    ...mapMutations(['SET_PAGINATION_CURRENT_PAGE']),
 
     /**
      * change to next page on pagination
      */
     nextPage() {
-      if (this.currentPage < this.tableDataFilteredPaginated.length - 1) {
-        this.currentPage++;
+      if (
+        this.paginationCurrentPage <
+        this.tableDataFilteredPaginated.length - 1
+      ) {
+        this.SET_PAGINATION_CURRENT_PAGE(this.paginationCurrentPage + 1);
       } else {
         return null;
       }
@@ -155,8 +166,8 @@ export default {
      * change to previous page on pagination
      */
     previousPage() {
-      if (this.currentPage > 0) {
-        this.currentPage--;
+      if (this.paginationCurrentPage > 0) {
+        this.SET_PAGINATION_CURRENT_PAGE(this.paginationCurrentPage - 1);
       } else {
         return null;
       }

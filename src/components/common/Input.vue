@@ -17,11 +17,11 @@ export default {
     name: String,
     id: String,
     textPlaceholder: String,
+    inputEventEmitName: String,
   },
   data() {
     return {
       inputValue: '',
-      timer: null,
     };
   },
   methods: {
@@ -29,10 +29,7 @@ export default {
      * delay emit of 'input' component
      */
     delayEmit() {
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        this.$emit('inputChange', this.inputValue);
-      }, 400);
+      this.$emit(this.inputEventEmitName, this.inputValue);
     },
   },
 };

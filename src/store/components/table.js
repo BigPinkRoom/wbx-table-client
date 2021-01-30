@@ -4,6 +4,7 @@ export default {
   state: {
     tableData: [],
     tableDataFiltered: [],
+    paginationCurrentPage: 0,
   },
   mutations: {
     SET_TABLE_DATA(state, payload) {
@@ -11,6 +12,9 @@ export default {
     },
     SET_TABLE_DATA_FILTERED(state, payload) {
       state.tableDataFiltered = payload;
+    },
+    SET_PAGINATION_CURRENT_PAGE(state, payload) {
+      state.paginationCurrentPage = payload;
     },
   },
   actions: {
@@ -51,6 +55,10 @@ export default {
       }
 
       return array;
+    },
+
+    paginationCurrentPage(state) {
+      return state.paginationCurrentPage;
     },
   },
 };
