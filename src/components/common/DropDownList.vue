@@ -20,9 +20,9 @@ export default {
   name: 'DropDownList',
   props: {
     id: String,
-    values: Array,
     name: String,
     textPlaceholder: String,
+    values: Array,
   },
   data() {
     return {
