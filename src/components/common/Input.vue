@@ -14,10 +14,9 @@
 export default {
   name: 'Input',
   props: {
-    name: String,
     id: String,
+    name: String,
     textPlaceholder: String,
-    inputEventEmitName: String,
   },
   data() {
     return {
@@ -29,7 +28,7 @@ export default {
      * delay emit of 'input' component
      */
     delayEmit() {
-      this.$emit(this.inputEventEmitName, this.inputValue);
+      this.$emit('changeInput', this.inputValue);
     },
   },
 };
