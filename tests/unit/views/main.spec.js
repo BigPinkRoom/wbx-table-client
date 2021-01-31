@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
 import Main from '@/views/Main';
 import Vuetify from 'vuetify';
 
@@ -11,10 +11,14 @@ describe('Main.vue page', () => {
     vuetify = new Vuetify();
   });
 
-  const shallowMountFunction = (options) => {
-    return shallowMount(Main, {
+  const mountFunction = (options) => {
+    return mount(Main, {
       localVue,
       vuetify,
+      stubs: {
+        AppFilter: true,
+        AppTable: true,
+      },
       propsData: {
         ...options,
       },
@@ -22,7 +26,7 @@ describe('Main.vue page', () => {
   };
 
   it('Show child components', () => {
-    const wrapper = shallowMountFunction();
+    const wrapper = mountFunction();
 
     expect(wrapper.findComponent({ name: 'filters' }).exists()).toBe(true);
     expect(wrapper.findComponent({ name: 'table' }).exists()).toBe(true);
