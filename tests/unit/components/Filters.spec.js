@@ -4,7 +4,7 @@ import Vuetify from 'vuetify';
 
 const localVue = createLocalVue();
 
-describe('Main.vue page', () => {
+describe('Filters.vue component', () => {
   let vuetify;
 
   beforeEach(() => {
@@ -20,11 +20,4 @@ describe('Main.vue page', () => {
       },
     });
   };
-
-  it('Show child components', () => {
-    const wrapper = shallowMountFunction();
-
-    expect(wrapper.findComponent({ name: 'filters' }).exists()).toBe(true);
-    expect(wrapper.findComponent({ name: 'table' }).exists()).toBe(true);
-  });
 });
