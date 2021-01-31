@@ -3,7 +3,7 @@
     <v-row class="d-flex flex-column flex-sm-row align-center">
       <!-- filters title -->
       <v-col class="col-auto d-flex text-uppercase pb-1 pb-sm-3">
-        <h2 class="blue--text">Filter:</h2>
+        <h2 ref="filters-title" class="blue--text">Filter:</h2>
       </v-col>
 
       <!-- filter of column -->
