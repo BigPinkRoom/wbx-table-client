@@ -10,9 +10,9 @@
       <v-col class="d-flex align-center py-1 py-sm-3">
         <app-drop-down-list
           id="columns"
-          :values="['Title', 'Quantity', 'Distance']"
+          :values="columnsData.values"
           name="columns"
-          textPlaceholder="Column"
+          :textPlaceholder="columnsData.textPlaceholder"
           @changeSelect="changeColumn"
         />
       </v-col>
@@ -25,9 +25,9 @@
       <v-col class="d-flex align-center py-1 py-sm-3">
         <app-drop-down-list
           id="conditions"
-          :values="['Equal', 'Contain', 'More', 'Less']"
+          :values="conditionsData.values"
           name="conditions"
-          textPlaceholder="Condition"
+          :textPlaceholder="conditionsData.textPlaceholder"
           @changeSelect="changeCondition"
         />
       </v-col>
@@ -40,9 +40,8 @@
         <app-input
           id="filterInput"
           name="filterInput"
-          textPlaceholder="Search..."
-          inputEventEmitName="inputChange"
-          @inputChange="inputChangeHandler"
+          :textPlaceholder="inputData.textPlaceholder"
+          @changeInput="inputChangeHandler"
         />
       </v-col>
     </v-row>
@@ -67,6 +66,17 @@ export default {
       selectColumn: '',
       selectCondition: '',
       inputEmitTimer: null,
+      columnsData: {
+        values: ['Title', 'Quantity', 'Distance'],
+        textPlaceholder: 'Column',
+      },
+      conditionsData: {
+        values: ['Equal', 'Contain', 'More', 'Less'],
+        textPlaceholder: 'Conditions',
+      },
+      inputData: {
+        textPlaceholder: 'Search...',
+      },
     };
   },
   computed: {
